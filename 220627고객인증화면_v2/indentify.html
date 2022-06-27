@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 요금안내서 고객 인증</title>
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <script src="js/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <header id="header">
+            <h1 class="topLogo">
+                <img src="img/top_logo.png" alt="SK telecom">
+            </h1>
+        </header>
+        <section id="content">
+            <div class="titleBox">                
+                <img src="img/img_lock.png" alt="" class="titleImg">                
+                <p class="titleText">이 요금안내서는 고객님의 소중한<br>정보보호를 위해 암호화 되어 있습니다.</p>
+            </div>
+            <div class="formBox">
+                <p>비밀번호 입력</p>
+                <form action="">
+                    <div class="inputBox">
+                        <input class="input-password" type="password" name="pdfPassword" id="pdfPassword" placeholder="비밀번호 입력해주세요.">
+                        <!-- 비밀번호 미일치 시 error클래스 추가 -->
+                        <div class="valiBox">
+                            <p class="vailText error">비밀번호가 일치하지 않습니다.</p>
+                        </div>
+                    </div>
+                    <div class="PWguide">
+                        <h2>비밀번호 안내</h2>
+                        <p>개인고객 : 생년월일 6자리</p>
+                        <p>법인고객 : 법인번호 뒤 7자리 또는 사업자번호 10자리</p>
+                    </div>
+                    <div class="showPwBox">
+                        <input type="checkbox" name="showPw" id="showPw">
+                        <label for="showPw">입력할 때 비밀번호 표시</label>
+                    </div>
+                    <div class="btnBox">
+                        <button class="pwBtn cancel" type="button">취소</button>
+                        <button class="pwBtn submit deactive" type="button">확인</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- splash screen -->
+        <div class="splash-screen on">
+            <img src="./img/a1.jpg" alt="광고">
+        </div>        
+        </div>
+</body>
+<script>
+    $(document).ready(function(){
+        var pwInput = $('#pdfPassword');
+        var chkbox = $('#showPw');
+        
+        // 입력할 때 비밀번호 표시
+        $(chkbox).click(function(){
+            if(chkbox.is(':checked')){
+                $(pwInput).attr('type','text');
+            }else{
+                $(pwInput).attr('type','password');
+            }
+        })
+
+        // 비밀번호 창에 값이 있을 시 완료버튼 활성화
+        $(pwInput).on('change, focusin, focusout, mousedown, mouseup, keydown, keyup',function(){
+            var pwInputValue = $('#pdfPassword').val();
+            if(pwInputValue !== ""){
+                $('.pwBtn.submit.deactive').removeClass('deactive');
+            }else{
+                $('.pwBtn.submit').addClass('deactive');
+            }
+        })
+    })
+
+    window.onload = function() {
+    // 로딩중  지연시간
+    setTimeout(function(){
+        $('.splash-screen').removeClass('on');
+    },2500)
+    }
+</script>
+</html>
